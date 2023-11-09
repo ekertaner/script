@@ -1,0 +1,18 @@
+#!/bin/bash
+
+rm /etc/apt/sources.list && touch /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian bullseye main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://deb.debian.org/debian bullseye main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://deb.debian.org/debian-security/ bullseye-security main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian bullseye-updates main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://deb.debian.org/debian bullseye-backports main contrib non-free" >> /etc/apt/sources.list
+
+timedatectl set-timezone Asia/Istanbul && dpkg-reconfigure openssh-server
+apt update -y && apt upgrade -y && apt install sudo -y && apt install curl -y && apt install bash -y && apt install make -y && apt install cmake -y && apt install unzip -y
+wget https://raw.githubusercontent.com/ekertaner/test/main/badvpn.zip && unzip badvpn.zip && cd badvpn-1.999.130 && mkdir build && cd build && cmake .. -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1 && make install
+
+
+clear
