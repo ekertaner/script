@@ -30,7 +30,7 @@ systemctl start videocall
 cd
 apt install stunnel
 
-cat >  /etc/systemd/system/videocall.service << ENDOFFILE
+cat >  /etc/stunnel/stunnel.conf << ENDOFFILE
 cert = /etc/stunnel/stunnel.pem
 client =no
 
