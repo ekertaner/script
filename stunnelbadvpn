@@ -1,5 +1,6 @@
 #!/bin/bash
 apt update && apt upgrade -y
+apt install sudo curl bash
 apt install cmake -y
 apt install screen wget gcc build-essential g++ make -y
 wget https://github.com/ekertaner/script/raw/main/badvpn-1.999.130.tar.gz
@@ -25,3 +26,21 @@ ENDOFFILE
 useradd -m videocall
 systemctl enable videocall
 systemctl start videocall
+
+cd
+apt install stunnel
+
+cat >  /etc/systemd/system/videocall.service << ENDOFFILE
+cert = /etc/stunnel/stunnel.pem
+client =no
+
+[ssh]
+accept = 443
+connect = 127.0.0.1:22
+ENDOFFILE
+
+openssl genrsa -out key.pem 2048
+openssl req -new -x509 -key key.pem -out cert.pem -days 1095
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+
+nano /etc/default/stunnel4
